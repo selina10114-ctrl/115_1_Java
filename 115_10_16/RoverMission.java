@@ -17,16 +17,33 @@ public class RoverMission {
             int command = input.nextInt();
             switch (command) {
                 case 1:
-                    // TODO D1：足夠能源才扣 6、加 2 份樣本並計次；不足只提示。
-                    System.out.println("TODO_EXPLORE");
+                    // D1：探索需要 6 點能源；足夠才扣 6、加 2 份樣本並計次，不足只提示
+                    if (energy >= 6) {
+                        energy -= 6;
+                        samples += 2;
+                        actionCount++;
+                    } else {
+                        System.out.println("NOT_ENOUGH_ENERGY");
+                    }
                     break;
                 case 2:
-                    // TODO D2：掃描成本 2、樣本加 1；只有成功行動才計次。
-                    System.out.println("TODO_SCAN");
+                    // D2：掃描成本 2 點能源、樣本加 1；只有成功行動才計次
+                    if (energy >= 2) {
+                        energy -= 2;
+                        samples += 1;
+                        actionCount++;
+                    } else {
+                        System.out.println("NOT_ENOUGH_ENERGY");
+                    }
                     break;
                 case 3:
-                    // TODO D3：未滿電才加 5，封頂 20；滿電不計次。
-                    System.out.println("TODO_CHARGE");
+                    // D3：未滿電（< 20）才充電，加 5 但封頂 20；滿電不計次
+                    if (energy < 20) {
+                        energy = Math.min(energy + 5, 20);
+                        actionCount++;
+                    } else {
+                        System.out.println("BATTERY_FULL");
+                    }
                     break;
                 case 0:
                     // break 只離開 switch，旗標讓下一次 while 判斷停止。
