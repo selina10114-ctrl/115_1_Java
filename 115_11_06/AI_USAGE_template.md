@@ -1,23 +1,8 @@
 # 第五週 AI 使用紀錄
 
-另存 AI_USAGE.md。每欄簡短填寫，不貼完整對話。使用真實服務、教師示範、模擬建議要據實標示。未使用 AI，第一欄寫「未使用」及原因，其餘可填不適用；本人課堂測試仍填 LAB_REPORT。不要上傳個資、密碼、憑證或未授權程式。
-
 | 欄位 | 本人紀錄 |
 |---|---|
-| 使用工具／方式 | 待填：真實AI、教師模擬建議或未使用 |
-| 目的與提問摘要 | 待填：SampleCase需求設計／審查，或F3所選錯誤建議 |
-| 建議與本人處理 | 待填：採納／拒絕理由、本人修改內容 |
-| 本人實際驗證 | 待填：反例、修改前後與重測，可引用LAB_REPORT F3 |
-
-AI 的正確宣稱不能代替編譯執行。觀看教師展示只能記「教師示範觀察」；本人複驗才可記本人測試。
-
-## 完整填寫範例（虛構／模擬）
-
-以下為教師自編，假設一名學生做過這些操作，只示範填寫方式，不是你或作者的真實對話／實測證據。提交時刪除本範例，改填上表。
-
-| 欄位 | 虛構填寫示範 |
-|---|---|
-| 使用工具／方式 | 教師模擬建議，未呼叫真實AI服務 |
-| 目的與提問摘要 | 判讀「把電池本身存進歷史，之後再讀能源」是否保留當時狀態 |
-| 建議與本人處理 | 我拒絕這項建議；兩個索引指向同一電池，不是兩個時間點的快照。在副本重現後，恢復每步建立StepCard並保存當時能源 |
-| 本人實際驗證 | SnapshotDemo錯誤副本印出19/19及same object=true；恢復後兩筆command/energy為1/14、3/19，current=19、separate records=true。再跑{1,1,2}得6/5/3 SUCCESS、{3,9,0}得20/0/0 RETURNED，完整輸出放LAB_REPORT F3 |
+| 使用工具／方式 | 真實AI：Claude Code（VS Code 擴充套件），由AI說明觀念並直接修改 starter 程式；TODO 6 由本人撰寫，AI協助除錯 |
+| 目的與提問摘要 | 1. 請AI教我並完成 MissionStep 的 TODO 1～3（this 保存欄位、getter 讀欄位、isSuccessful 判斷 OK）；2. 完成 MissionLog 的 TODO 4（每步新增一筆 MissionStep）與 TODO 5（依索引取出物件，以 getter 印出與第四週相同的回放）；3. 我自己寫的 TODO 6 出現編譯錯誤，請AI找出原因 |
+| 建議與本人處理 | 採納：TODO 4 放在 switch 之後只寫一次 `history.add(new MissionStep(command, energy, result))`，因為拒絕、無效、返回都會走到這裡，不必在每個 case 重複寫，也不會漏記；每步都 new 新物件，才是各時間點的快照。採納 `"OK".equals(result)`，拒絕用 `==`，因為 `==` 比的是物件參考，不是字串內容。TODO 6 除錯：AI 指出 for 迴圈少一個「}」，後面的程式被誤判在迴圈內，所以又出現 Duplicate local variable step；我補上「}」並修正縮排後通過編譯 |
+| 本人實際驗證 | 已自行修改 main 並執行測試，9 組測試結果皆與預期一致，包含 SUCCESS、RETURNED、UNFINISHED、EXHAUSTED 等情況，也確認初始樣本為 5 或能源為 0 時，steps = 0、lowest energy = N/A。另以 new String("OK") 驗證 isSuccessful，結果為 true，確認程式使用字串內容比較而非物件參考比較。完整執行輸出已整理於 LAB_REPORT F3。
