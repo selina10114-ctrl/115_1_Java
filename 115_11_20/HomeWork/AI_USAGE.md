@@ -1,7 +1,8 @@
 # 第七週 AI 使用紀錄
 
 姓名／學號：黃子芸／A113221304
-工具及來源：GitHub Copilot，本次對話；修改與測試對象為本機 `115_11_20/HomeWork/src` 程式。
+
+工具及來源：GitHub Copilot
 
 ## 精簡紀錄
 
